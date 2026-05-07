@@ -1,0 +1,88 @@
+import React from 'react';
+import { Settings, Edit2, Coins, Droplets, FileText, MapPin, Globe, ChevronRight } from 'lucide-react';
+
+const AccountPage = () => {
+    return (
+        <div className="min-h-screen bg-[#0A0A0F] text-white pb-24">
+            {/* Top Header */}
+            <div className="bg-[#16161F] p-6 rounded-b-[2.5rem] border-b border-white/5 shadow-2xl">
+                <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-2xl bg-red-500 flex items-center justify-center text-2xl font-black border-2 border-white/10">
+                            MR
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold italic">Mahialam Rahat</h2>
+                            <p className="text-gray-500 text-xs">@mahi_rahat</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-2">
+                        <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition"><Edit2 size={18} /></button>
+                        <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition"><Settings size={18} /></button>
+                    </div>
+                </div>
+
+                {/* Coin/Wallet Card (MyRobi Style) */}
+                <div className="bg-gradient-to-br from-red-600 to-red-800 rounded-3xl p-5 flex justify-between items-center shadow-lg shadow-red-900/20">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-md">
+                            <Coins className="text-yellow-400" size={28} />
+                        </div>
+                        <div>
+                            <p className="text-[10px] uppercase font-bold tracking-widest text-red-200">Total Coins</p>
+                            <h3 className="text-2xl font-black">1,250</h3>
+                        </div>
+                    </div>
+                    <button className="bg-white text-red-600 px-4 py-2 rounded-xl font-bold text-xs hover:bg-gray-100 transition">
+                        Redeem
+                    </button>
+                </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="px-6 -mt-4 grid grid-cols-2 gap-4">
+                <StatCard icon={<FileText className="text-blue-400" />} count="42" label="Reports" />
+                <StatCard icon={<Droplets className="text-red-400" />} count="08" label="Donations" />
+            </div>
+
+            {/* Settings/Info List */}
+            <div className="px-6 mt-8 space-y-3">
+                <h4 className="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em] ml-2 mb-4">Location & Identity</h4>
+                
+                <InfoItem icon={<MapPin size={20} />} label="Division" value="Mymensingh" />
+                <InfoItem icon={<MapPin size={20} />} label="District" value="Jamalpur" />
+                <InfoItem icon={<Globe size={20} />} label="App Language" value="English (US)" />
+                
+                <div className="pt-4">
+                    <button className="w-full bg-white/5 border border-white/10 py-4 rounded-2xl font-bold text-red-500 hover:bg-red-500/10 transition">
+                        Logout Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Sub-components
+const StatCard = ({ icon, count, label }) => (
+    <div className="bg-[#16161F] border border-white/5 p-4 rounded-3xl flex flex-col items-center justify-center shadow-xl">
+        <div className="mb-2">{icon}</div>
+        <h4 className="text-xl font-black">{count}</h4>
+        <p className="text-[10px] text-gray-500 uppercase font-bold">{label}</p>
+    </div>
+);
+
+const InfoItem = ({ icon, label, value }) => (
+    <div className="flex items-center justify-between bg-[#16161F]/50 p-4 rounded-2xl border border-white/5 hover:bg-[#16161F] transition cursor-pointer group">
+        <div className="flex items-center gap-4">
+            <div className="text-gray-500 group-hover:text-red-500 transition-colors">{icon}</div>
+            <div>
+                <p className="text-[10px] text-gray-500 uppercase font-bold leading-none mb-1">{label}</p>
+                <p className="text-sm font-semibold">{value}</p>
+            </div>
+        </div>
+        <ChevronRight size={18} className="text-gray-700 group-hover:text-white transition-all" />
+    </div>
+);
+
+export default AccountPage;
