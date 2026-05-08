@@ -1,8 +1,15 @@
+'use client'
 import React from 'react';
 import { Search, Bell, Menu, ScanLine, ChevronDown, Award, Wallet } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const HomeHeader = () => {
+    const path = usePathname();
+    if (path.startsWith('/store')) {
+        return <>
+        </>
+    }
     return (
         <header className="bg-[#0A0A0F] text-white pt-4 pb-6 px-4 rounded-b-[2.5rem] shadow-2xl relative overflow-hidden border-b border-white/5">
             {/* Background Glow Effect */}
