@@ -20,10 +20,12 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/store", icon: ShoppingBag, label: "Store" },
-    { href: "/report", icon: FileText, label: "Report" },
+    { href: "/feeds", icon: FileText, label: "Feeds" },
     { href: "/blood", icon: Droplets, label: "Blood" },
     { href: "/account", icon: User, label: "Account" },
   ];
+
+  if (pathname.startsWith('/feeds') || pathname.startsWith('/messages') || pathname.startsWith('/reports') || pathname.startsWith('/reels')) return null;
 
   return (
     <>

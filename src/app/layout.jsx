@@ -4,6 +4,7 @@ import Headline from "@/components/Navbar/Headline";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import HomeHeader from "@/components/Navbar/HomeHeader";
+import FeedsHeader from "@/components/Navbar/FeedsHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,10 @@ export default function RootLayout({ children }) {
         <header className="block lg:hidden">
           <HomeHeader />
         </header>
+
+        <header>
+               <FeedsHeader />
+            </header>
 
         <main>
 
