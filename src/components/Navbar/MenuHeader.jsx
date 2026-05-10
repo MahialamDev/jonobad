@@ -8,7 +8,19 @@ const MenuHeader = () => {
     const pathname = usePathname();
     const router = useRouter();
 
-    if (!pathname.startsWith('/menu')) return null;
+   
+
+   const showPath = [
+  '/menu',
+  '/blood',
+       '/account',
+  '/wallet',
+  '/store/create-store',
+  '/store/manage-store'
+];
+
+if (!showPath.includes(pathname)) return null;
+  
 
     const cleanTitle = pathname.split('/').pop()?.replace(/-/g, ' ') || 'MENU';
 
@@ -16,7 +28,7 @@ const MenuHeader = () => {
         <motion.header 
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className='fixed top-0 left-0 right-0 z-100 transition-colors duration-300'
+            className='fixed top-0 left-0 right-0 z-100 transition-colors md:hidden duration-300'
         >
             {/* Glassmorphism Container 
                Mobile: h-16, PX-5
@@ -42,7 +54,7 @@ const MenuHeader = () => {
                     </div>
 
                     {/* --- Center: Dynamic Title (Mobile Only) --- */}
-                    <h1 className='md:hidden text-[11px] font-black italic tracking-[0.3em] text-base-content uppercase'>
+                    <h1 className='md:hidden text-[11px] font-black tracking-[0.3em] text-base-content uppercase'>
                         {cleanTitle === 'menu' ? 'JONOBAD MENU' : cleanTitle}
                     </h1>
 

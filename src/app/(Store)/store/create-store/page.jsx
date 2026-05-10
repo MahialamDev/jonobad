@@ -16,7 +16,7 @@ const CreateStore = () => {
 
   return (
     // bg-base-100 আপনার থিম থেকে ডার্ক বা লাইট ব্যাকগ্রাউন্ড নিবে
-    <div className="min-h-screen bg-base-100 text-base-content py-12 px-6 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-base-100 text-base-content mt-2 py-12 px-6 relative overflow-hidden transition-colors duration-300">
       
       {/* Decorative Background Elements - আপনার থিমের প্রাইমারি সবুজাভ গ্লো */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />

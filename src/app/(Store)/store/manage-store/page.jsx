@@ -18,7 +18,7 @@ import {
 
 const StoreDashboard = () => {
   return (
-    <div className="min-h-screen bg-base-100 text-base-content pb-24 transition-colors duration-300">
+    <div className="min-h-screen bg-base-100 mt-10 text-base-content pb-24 transition-colors duration-300">
       
       {/* HERO */}
       <div className="relative overflow-hidden border-b border-base-300">

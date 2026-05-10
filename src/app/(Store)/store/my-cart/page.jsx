@@ -24,21 +24,23 @@ const MyCart = () => {
     const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
     return (
-        <div className="min-h-screen bg-[#0A0A0F] text-white pb-32">
+        <div className="min-h-screen bg-base-100 text-base-content pb-40">
             {/* Header */}
-            <div className="sticky top-0 z-50 bg-[#0A0A0F]/80 backdrop-blur-lg border-b border-white/5 px-6 py-5 flex items-center gap-4">
+            <div className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300 px-6 py-5 flex items-center gap-4">
                 <Link href="/store">
-                    <button className="p-2 hover:bg-white/5 rounded-full transition">
-                        <ArrowLeft size={20} />
+                    <button className="p-2.5 hover:bg-primary/10 rounded-xl transition-colors group">
+                        <ArrowLeft size={20} className="group-hover:text-primary transition-colors" />
                     </button>
                 </Link>
-                <h1 className="text-xl font-bold italic tracking-tight">MY <span className="text-red-500">CART</span></h1>
-                <span className="ml-auto bg-red-500/10 text-red-500 text-[10px] font-black px-3 py-1 rounded-full border border-red-500/20">
+                <h1 className="text-xl font-black italic tracking-tighter uppercase">
+                    MY <span className="text-primary">CART</span>
+                </h1>
+                <span className="ml-auto bg-primary/10 text-primary text-[10px] font-black px-4 py-1.5 rounded-full border border-primary/20 tracking-widest">
                     {cartItems.length} ITEMS
                 </span>
             </div>
 
-            <div className="max-w-3xl mx-auto p-6">
+            <div className="max-w-2xl mx-auto p-6">
                 {cartItems.length > 0 ? (
                     <div className="space-y-4">
                         <AnimatePresence mode='popLayout'>
@@ -49,31 +51,31 @@ const MyCart = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, x: -100 }}
-                                    className="bg-[#16161F] border border-white/[0.03] rounded-3xl p-4 flex gap-4 items-center group"
+                                    className="bg-base-200 border border-base-300 rounded-2xl p-4 flex gap-5 items-center group hover:border-primary/30 transition-all shadow-sm"
                                 >
                                     {/* Product Image */}
-                                    <div className="w-20 h-20 rounded-2xl overflow-hidden bg-white/5 shrink-0">
-                                        <img src={item.img} alt={item.name} className="w-full h-full object-cover" />
+                                    <div className="w-20 h-20 rounded-xl overflow-hidden bg-base-300 shrink-0 border border-base-300">
+                                        <img src={item.img} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     </div>
 
                                     {/* Info */}
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1">{item.category}</p>
-                                        <h3 className="font-bold text-sm truncate mb-3">{item.name}</h3>
+                                        <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 opacity-70">{item.category}</p>
+                                        <h3 className="font-bold text-sm truncate mb-3 tracking-tight">{item.name}</h3>
                                         
                                         <div className="flex items-center justify-between">
-                                            <p className="text-lg font-black text-white">৳{item.price}</p>
+                                            <p className="text-lg font-black text-base-content tracking-tighter">৳{item.price}</p>
                                             
                                             {/* Qty Controls */}
-                                            <div className="flex items-center gap-3 bg-[#0A0A0F] border border-white/5 rounded-xl px-2 py-1">
+                                            <div className="flex items-center gap-3 bg-base-100 border border-base-300 rounded-xl px-2.5 py-1.5 shadow-inner">
                                                 <button 
                                                     onClick={() => updateQty(item.id, -1)}
-                                                    className="p-1 hover:text-red-500 transition"><Minus size={14} />
+                                                    className="p-1 hover:text-primary transition-colors"><Minus size={14} />
                                                 </button>
                                                 <span className="text-xs font-black font-mono w-4 text-center">{item.qty}</span>
                                                 <button 
                                                     onClick={() => updateQty(item.id, 1)}
-                                                    className="p-1 hover:text-green-500 transition"><Plus size={14} />
+                                                    className="p-1 hover:text-primary transition-colors"><Plus size={14} />
                                                 </button>
                                             </div>
                                         </div>
@@ -82,7 +84,7 @@ const MyCart = () => {
                                     {/* Delete Button */}
                                     <button 
                                         onClick={() => removeItem(item.id)}
-                                        className="p-3 text-gray-600 hover:text-red-500 transition-colors self-start"
+                                        className="p-3 text-base-content/20 hover:text-primary transition-all self-start hover:bg-primary/5 rounded-xl"
                                     >
                                         <Trash2 size={18} />
                                     </button>
@@ -91,14 +93,14 @@ const MyCart = () => {
                         </AnimatePresence>
                     </div>
                 ) : (
-                    <div className="py-20 text-center">
-                        <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <ShoppingBag className="text-gray-600" size={32} />
+                    <div className="py-24 text-center">
+                        <div className="w-24 h-24 bg-primary/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 border border-primary/10">
+                            <ShoppingBag className="text-primary/40" size={40} />
                         </div>
-                        <h2 className="text-xl font-bold mb-2">Your cart is empty</h2>
-                        <p className="text-gray-500 text-sm mb-8">Looks like you haven't added <br /> anything to your cart yet.</p>
+                        <h2 className="text-2xl font-black italic uppercase tracking-tighter mb-2">Cart is empty</h2>
+                        <p className="text-base-content/40 text-sm mb-10 font-medium">Looks like you haven't added <br /> anything to your collection yet.</p>
                         <Link href="/store">
-                            <button className="bg-red-600 hover:bg-red-500 px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-red-600/20">
+                            <button className="bg-primary hover:bg-primary/90 text-primary-content px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all shadow-xl shadow-primary/20 active:scale-95">
                                 Start Shopping
                             </button>
                         </Link>
@@ -108,26 +110,28 @@ const MyCart = () => {
 
             {/* Bottom Checkout Section */}
             {cartItems.length > 0 && (
-                <div className="fixed bottom-0 left-0 right-0 p-6 z-50">
+                <div className="fixed bottom-0 left-0 right-0 p-6 z-50 pointer-events-none">
                     <motion.div 
                         initial={{ y: 100 }}
                         animate={{ y: 0 }}
-                        className="max-w-3xl mx-auto bg-white rounded-[2.5rem] p-6 shadow-[0_-20px_40px_rgba(0,0,0,0.4)]"
+                        className="max-w-2xl mx-auto bg-base-200 border border-base-300 rounded-[2rem] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto"
                     >
-                        <div className="flex justify-between items-center mb-4 px-2">
+                        <div className="flex justify-between items-center mb-6 px-2">
                             <div>
-                                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Payable</p>
-                                <h2 className="text-3xl font-black text-black italic">৳{subtotal}</h2>
+                                <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-1">Total Payable</p>
+                                <h2 className="text-3xl font-black text-base-content italic tracking-tighter">৳{subtotal}</h2>
                             </div>
                             <div className="text-right">
-                                <p className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-lg inline-block">Free Delivery</p>
+                                <p className="text-[9px] font-black text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg inline-block uppercase tracking-widest">
+                                    Free Delivery
+                                </p>
                             </div>
                         </div>
 
-                        <button className="w-full bg-[#0A0A0F] hover:bg-red-600 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all group">
-                            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">Proceed to Checkout</span>
-                            <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all">
-                                <ChevronRight size={16} className="text-white" />
+                        <button className="w-full mb-10 bg-primary hover:bg-primary/90 text-primary-content py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] group shadow-xl shadow-primary/20">
+                            <span className="text-[11px] font-black uppercase tracking-[0.3em]">Proceed to Checkout</span>
+                            <div className="w-8 h-8 bg-primary-content/10 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-all">
+                                <ChevronRight size={16} />
                             </div>
                         </button>
                     </motion.div>
