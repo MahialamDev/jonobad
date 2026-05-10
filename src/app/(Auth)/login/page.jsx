@@ -1,56 +1,67 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { DiChrome } from 'react-icons/di';
-import { GiThunderBlade } from 'react-icons/gi';
-
+import { FaGithub } from 'react-icons/fa'; // GiThunderBlade এর বদলে standard Github icon
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
+
+  const handleLogin = async( e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const result = await signIn('credentials', { email, password, redirect: false });
+    console.log(result)
+  }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-600/10 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/5 blur-[120px] rounded-full" />
+    <div className="min-h-screen bg-base-100 flex items-center justify-center p-6 relative overflow-hidden text-base-content">
+      
+      {/* Background Accent Orbs - Using Theme Colors */}
+      <div className="absolute top-[-10%] left-[-10%] w-[45%] h-[45%] bg-primary/10 blur-[120px] rounded-full" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-secondary/5 blur-[120px] rounded-full" />
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
         className="w-full max-w-[450px] z-10"
       >
         {/* Logo Section */}
         <div className="text-center mb-10">
           <motion.div 
-            initial={{ scale: 0.5 }}
-            animate={{ scale: 1 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-800 mb-4 shadow-lg shadow-red-500/20"
+            initial={{ scale: 0.8, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            className="inline-flex items-center justify-center w-16 h-16 rounded-[2rem] bg-gradient-to-br from-primary to-primary-focus mb-6 shadow-2xl shadow-primary/30"
           >
-            <Lock className="text-white" size={32} />
+            <Lock className="text-primary-content" size={30} />
           </motion.div>
-          <h1 className="text-4xl font-black text-white tracking-tight italic">
-            JONO<span className="text-red-500">BAD</span>
+          <h1 className="text-4xl font-black italic tracking-tighter">
+            JONO<span className="text-primary">BAD</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-2 font-bold uppercase tracking-[0.2em]">Secure Citizen Portal</p>
+          <p className="text-base-content/40 text-[10px] mt-2 font-black uppercase tracking-[0.3em]">Secure Citizen Portal</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-[#16161F]/50 backdrop-blur-xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl">
-          <form className="space-y-6">
+        <div className="bg-base-200/50 backdrop-blur-2xl border border-base-300 p-8 rounded-[3rem] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.5)]">
+          <form className="space-y-5" onSubmit={handleLogin}>
+            
             {/* Email Input */}
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
+              <label className="text-[10px] font-black text-base-content/50 uppercase tracking-widest ml-1">Email Address</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Mail size={18} className="text-gray-500 group-focus-within:text-red-500 transition-colors" />
+                  <Mail size={18} className="text-base-content/30 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
                   type="email" 
-                  placeholder="name@example.com"
-                  className="w-full bg-[#0A0A0F] border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-red-500/50 transition-all placeholder:text-gray-700"
+                  name='email'
+                  placeholder="rahat@example.com"
+                  className="w-full bg-base-300/50 border border-base-300 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-base-content/20"
                 />
               </div>
             </div>
@@ -58,22 +69,23 @@ const LoginPage = () => {
             {/* Password Input */}
             <div className="space-y-2">
               <div className="flex justify-between items-center ml-1">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">Password</label>
-                <a href="#" className="text-[10px] font-bold text-red-500 hover:underline">Forgot?</a>
+                <label className="text-[10px] font-black text-base-content/50 uppercase tracking-widest">Password</label>
+                <a href="#" className="text-[10px] font-black text-primary hover:opacity-80 transition-opacity">Forgot?</a>
               </div>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock size={18} className="text-gray-500 group-focus-within:text-red-500 transition-colors" />
+                  <Lock size={18} className="text-base-content/30 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
                   type={showPassword ? "text" : "password"} 
+                  name='password'
                   placeholder="••••••••"
-                  className="w-full bg-[#0A0A0F] border border-white/5 rounded-2xl py-4 pl-12 pr-12 text-white focus:outline-none focus:border-red-500/50 transition-all placeholder:text-gray-700"
+                  className="w-full bg-base-300/50 border border-base-300 rounded-2xl py-4 pl-12 pr-12 text-sm focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-base-content/20"
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-white transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-base-content/30 hover:text-base-content transition-colors"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -82,9 +94,9 @@ const LoginPage = () => {
 
             {/* Login Button */}
             <motion.button 
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-black py-4 rounded-2xl shadow-lg shadow-red-500/20 flex items-center justify-center gap-2 transition-all"
+              className="w-full bg-primary hover:bg-primary-focus text-primary-content font-black py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-4 tracking-widest text-xs"
             >
               SIGN IN <ArrowRight size={18} />
             </motion.button>
@@ -93,27 +105,29 @@ const LoginPage = () => {
           {/* Divider */}
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/5"></div>
+              <div className="w-full border-t border-base-300"></div>
             </div>
-            <div className="relative flex justify-center text-[10px] uppercase font-black tracking-widest">
-              <span className="bg-[#16161F] px-4 text-gray-500">Or continue with</span>
+            <div className="relative flex justify-center text-[9px] uppercase font-black tracking-[0.2em]">
+              <span className="bg-base-200 px-4 text-base-content/30 italic">Or continue with</span>
             </div>
           </div>
 
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 py-3 rounded-xl transition-all">
-              <DiChrome size={18} /> <span className="text-xs font-bold">Google</span>
+            <button className="flex items-center justify-center gap-2 bg-base-300/50 hover:bg-base-300 border border-base-300 py-3.5 rounded-2xl transition-all group">
+              <DiChrome size={20} className="group-hover:text-primary transition-colors" /> 
+              <span className="text-[11px] font-black uppercase tracking-tighter">Google</span>
             </button>
-            <button className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 py-3 rounded-xl transition-all">
-              <GiThunderBlade size={18} /> <span className="text-xs font-bold">Github</span>
+            <button className="flex items-center justify-center gap-2 bg-base-300/50 hover:bg-base-300 border border-base-300 py-3.5 rounded-2xl transition-all group">
+              <FaGithub size={18} className="group-hover:text-primary transition-colors" /> 
+              <span className="text-[11px] font-black uppercase tracking-tighter">Github</span>
             </button>
           </div>
         </div>
 
         {/* Footer Link */}
-        <p className="text-center mt-8 text-gray-500 text-sm">
-          Don't have an account? <a href="#" className="text-white font-bold hover:text-red-500 transition-colors">Join the movement</a>
+        <p className="text-center mt-10 text-base-content/40 text-[11px] font-medium tracking-tight">
+          Don't have an account? <Link href="/signup" className="text-primary font-black hover:underline underline-offset-4 ml-1">Join the movement</Link>
         </p>
       </motion.div>
     </div>

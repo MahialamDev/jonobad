@@ -24,7 +24,7 @@ const Navbar = () => {
     { href: "/store", icon: ShoppingBag, label: "Store" },
     { href: "/feeds", icon: FileText, label: "Feeds" },
     { href: "/blood", icon: Droplets, label: "Blood" },
-    { href: "/account", icon: User, label: "Account" },
+    { href: "/login", icon: User, label: "Account" },
   ];
 
   const hideNavbarPaths = ['/feeds', '/messages', '/reports', '/reels', '/store', '/menu'];

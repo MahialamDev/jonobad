@@ -6,6 +6,7 @@ import Footer from "@/components/Footer/Footer";
 import HomeHeader from "@/components/Navbar/HomeHeader";
 import FeedsHeader from "@/components/Navbar/FeedsHeader";
 import MenuHeader from "@/components/Navbar/MenuHeader";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} 
     >
       <body className="min-h-full flex flex-col">
-
+        <NextAuthProvider>
         <Headline />
 
         <header className="sticky top-0 z-50 hidden md:block ">
@@ -57,7 +58,7 @@ export default function RootLayout({ children }) {
 
         <Footer />
 
-
+</NextAuthProvider>
       </body>
     </html>
   );

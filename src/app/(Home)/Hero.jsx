@@ -1,8 +1,11 @@
 'use client'
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 const Hero = () => {
+  const session = useSession();
+  console.log(session);
   return (
     <section className="min-h-screen wrapper grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden text-white pt-20 lg:pt-0 px-4">
       
@@ -31,6 +34,8 @@ const Hero = () => {
           🇧🇩 Bangladesh's Civic Super-App
         </motion.div>
 
+       
+
         <h1 className="leading-none">
           <span className="block text-6xl sm:text-7xl lg:text-[8rem] font-black tracking-wider text-white">
             JONO
@@ -42,6 +47,8 @@ const Hero = () => {
             জনবাদ
           </span>
         </h1>
+
+        <p className=''> Name : { session?.data?.user?.name}</p>
 
         <p className="text-xl sm:text-2xl text-gray-400 mt-6 font-medium">
           The Voice of 170 Million People.

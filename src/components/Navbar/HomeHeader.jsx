@@ -10,14 +10,29 @@ const HomeHeader = () => {
     const [isExpanded, setIsExpanded] = useState(true);
     
     // স্ক্রল করলে হেডার একদম উপরে উঠে যাবে
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         if (window.scrollY > 10) setIsExpanded(true);
+    //         else setIsExpanded(true);
+            
+    //     };
+    //     window.addEventListener('scroll', handleScroll, { passive: true });
+    //     return () => window.removeEventListener('scroll', handleScroll);
+    // }, []);
+
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 10) setIsExpanded(false);
-            else setIsExpanded(true);
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const handleScroll = () => {
+        // শুধু top এ থাকলে auto expand করবে
+        if (window.scrollY <= 10) {
+            setIsExpanded(true);
+        }
+        // নিচে গেলে কিছুই করবে না
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+}, []);
 
     if (path !== '/') return null;
 
