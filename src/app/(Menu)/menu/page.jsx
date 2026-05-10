@@ -8,74 +8,75 @@ import {
 import { motion } from 'framer-motion';
 
 const MenuPage = () => {
-  // মেনু আইটেমগুলোকে ক্যাটাগরি অনুযায়ী সাজানো হয়েছে
+  // মেনু আইটেমগুলোকে ক্যাটাগরি অনুযায়ী আপনার থিম কালারে সাজানো হয়েছে
   const menuGroups = [
     {
       title: "Emergency & Safety",
       items: [
-        { id: 1, label: 'Emergency Alert', icon: AlertTriangle, color: 'text-red-500', bg: 'bg-red-500/10' },
-        { id: 2, label: 'Govt. Emergency Numbers', icon: PhoneCall, color: 'text-orange-500', bg: 'bg-orange-500/10' },
+        { id: 1, label: 'Emergency Alert', icon: AlertTriangle, color: 'text-primary', bg: 'bg-primary/10' },
+        { id: 2, label: 'Govt. Emergency Numbers', icon: PhoneCall, color: 'text-secondary', bg: 'bg-secondary/10' },
       ]
     },
     {
       title: "Community & Support",
       items: [
-        { id: 3, label: 'Donation', icon: HeartHandshake, color: 'text-pink-500', bg: 'bg-pink-500/10' },
-        { id: 4, label: 'Volunteer Network', icon: Users, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-        { id: 5, label: 'Reports & Grievance', icon: FileText, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+        { id: 3, label: 'Donation', icon: HeartHandshake, color: 'text-primary', bg: 'bg-primary/10' },
+        { id: 4, label: 'Volunteer Network', icon: Users, color: 'text-secondary', bg: 'bg-secondary/10' },
+        { id: 5, label: 'Reports & Grievance', icon: FileText, color: 'text-accent', bg: 'bg-accent/10' },
       ]
     },
     {
       title: "Services & Utility",
       items: [
-        { id: 6, label: 'Jonobad Wallet', icon: Wallet, color: 'text-green-500', bg: 'bg-green-500/10' },
-        { id: 7, label: 'Job Info & Find', icon: Briefcase, color: 'text-cyan-500', bg: 'bg-cyan-500/10' },
-        { id: 8, label: 'Find Worker/Technician', icon: HardHat, color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
+        { id: 6, label: 'Jonobad Wallet', icon: Wallet, color: 'text-primary', bg: 'bg-primary/10' },
+        { id: 7, label: 'Job Info & Find', icon: Briefcase, color: 'text-secondary', bg: 'bg-secondary/10' },
+        { id: 8, label: 'Find Worker/Technician', icon: HardHat, color: 'text-primary', bg: 'bg-primary/10' },
       ]
     },
     {
       title: "Lifestyle & Local",
       items: [
-        { id: 9, label: 'Travel Places', icon: Mountain, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-        { id: 10, label: 'To-Let / Housing', icon: Home, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
+        { id: 9, label: 'Travel Places', icon: Mountain, color: 'text-secondary', bg: 'bg-secondary/10' },
+        { id: 10, label: 'To-Let / Housing', icon: Home, color: 'text-primary', bg: 'bg-primary/10' },
       ]
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] text-white pt-28 pb-12 px-4">
+    <div className="min-h-screen bg-base-100 text-base-content pt-28 pb-12 px-4 transition-colors duration-300">
       <div className="max-w-xl mx-auto space-y-6">
         
         {/* --- USER PROFILE CARD --- */}
-        <div className="bg-[#16161F] border border-white/[0.05] p-5 rounded-[2.5rem] flex items-center justify-between">
+        <div className="bg-base-200 border border-base-300 p-5 rounded-[2.5rem] flex items-center justify-between shadow-xl">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 p-0.5">
+            {/* থিমের প্রাইমারি সবুজাভ গ্রেডিয়েন্ট */}
+            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-secondary p-0.5 shadow-lg shadow-primary/20">
               <img 
                 src="https://api.dicebear.com/8.x/notionists/svg?seed=Mahi" 
-                className="w-full h-full rounded-full bg-[#0A0A0F] object-cover" 
+                className="w-full h-full rounded-full bg-base-100 object-cover" 
                 alt="Profile"
               />
             </div>
-            <div>
+            <div className="text-left">
               <h2 className="text-lg font-black italic tracking-tight">Mahialam Rahat</h2>
-              <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Premium Member</p>
+              <p className="text-[10px] text-primary font-black uppercase tracking-widest">Premium Member</p>
             </div>
           </div>
-          <button className="p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition">
-            <Settings size={20} className="text-gray-400" />
+          <button className="btn btn-ghost bg-base-100 border border-base-300 p-3 w-12 h-12 rounded-2xl hover:bg-base-300 transition-all">
+            <Settings size={20} className="opacity-60" />
           </button>
         </div>
 
         {/* --- QUICK ACTION BUTTONS --- */}
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: 'My Account', icon: UserCircle },
-            { id: 'sub', label: 'Subscription', icon: Crown },
-            { label: 'About App', icon: Info },
+            { label: 'My Account', icon: UserCircle, color: 'text-primary' },
+            { id: 'sub', label: 'Subscription', icon: Crown, color: 'text-warning' },
+            { label: 'About App', icon: Info, color: 'text-secondary' },
           ].map((item, idx) => (
-            <button key={idx} className="bg-[#16161F] border border-white/[0.05] p-4 rounded-3xl flex flex-col items-center gap-2 hover:bg-white/[0.08] transition">
-              <item.icon size={22} className={item.id === 'sub' ? 'text-yellow-500' : 'text-red-500'} />
-              <span className="text-[9px] font-black uppercase text-gray-400 text-center">{item.label}</span>
+            <button key={idx} className="bg-base-200 border border-base-300 p-4 rounded-3xl flex flex-col items-center gap-2 hover:bg-base-300 transition-all active:scale-95 group">
+              <item.icon size={22} className={`${item.color} group-hover:scale-110 transition-transform`} />
+              <span className="text-[9px] font-black uppercase opacity-60 text-center">{item.label}</span>
             </button>
           ))}
         </div>
@@ -83,25 +84,25 @@ const MenuPage = () => {
         {/* --- DYNAMIC MENU GROUPS --- */}
         {menuGroups.map((group, gIdx) => (
           <div key={gIdx} className="space-y-3">
-            <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-4">
+            <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] ml-4 text-left">
               {group.title}
             </p>
-            <div className="bg-[#16161F] border border-white/[0.05] rounded-[2.5rem] overflow-hidden">
+            <div className="bg-base-200 border border-base-300 rounded-[2.5rem] overflow-hidden shadow-sm">
               {group.items.map((item, iIdx) => (
                 <motion.div 
                   whileTap={{ scale: 0.98 }}
                   key={item.id}
-                  className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.03] transition-all ${
-                    iIdx !== group.items.length - 1 ? 'border-b border-white/[0.03]' : ''
+                  className={`flex items-center justify-between p-4 cursor-pointer hover:bg-base-300 transition-all ${
+                    iIdx !== group.items.length - 1 ? 'border-b border-base-300' : ''
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-2xl ${item.bg} flex items-center justify-center`}>
                       <item.icon size={20} className={item.color} />
                     </div>
-                    <span className="text-xs font-bold text-gray-200">{item.label}</span>
+                    <span className="text-xs font-bold opacity-90">{item.label}</span>
                   </div>
-                  <ChevronRight size={16} className="text-gray-700" />
+                  <ChevronRight size={16} className="opacity-20" />
                 </motion.div>
               ))}
             </div>
@@ -109,7 +110,7 @@ const MenuPage = () => {
         ))}
 
         {/* --- LOGOUT BUTTON --- */}
-        <button className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8">
+        <button className="w-full bg-error/10 hover:bg-error/20 text-error border border-error/20 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8 shadow-sm">
           <LogOut size={18} />
           <span className="text-xs font-black uppercase tracking-widest">Logout from Jonobad</span>
         </button>

@@ -1,4 +1,4 @@
-"use client"; // Next.js App Router ব্যবহার করলে এটি প্রয়োজন
+"use client";
 import { Home, ShoppingBag, FileText, Droplets, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -7,19 +7,19 @@ import React from 'react';
 const NavItem = ({ icon: Icon, href, label, active }) => (
     <Link 
         href={href} 
-        className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative group
-            ${active ? 'text-red-500' : 'text-gray-400 hover:text-gray-200'}`}
+        className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative group flex-1
+            ${active ? 'text-primary' : 'text-base-content/40 hover:text-base-content'}`}
     >
-        {/* Active Indicator Dot */}
+        {/* Active Indicator Dot - হেডলাইনের এনিমেশনের মতো পালস ইফেক্ট */}
         {active && (
-            <span className="absolute -top-2 w-1 h-1 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+            <span className="absolute -top-3 w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_rgba(var(--p),0.8)] animate-pulse" />
         )}
         
-        <div className={`p-1 rounded-xl transition-colors ${active ? 'bg-red-500/10' : 'group-hover:bg-white/5'}`}>
-            <Icon size={22} strokeWidth={active ? 2.5 : 2} />
+        <div className={`p-2 rounded-xl transition-all duration-300 ${active ? 'bg-primary/10 scale-110' : 'group-hover:bg-base-200'}`}>
+            <Icon size={20} strokeWidth={active ? 3 : 2} />
         </div>
         
-        <span className="text-[10px] font-bold uppercase tracking-tighter">
+        <span className={`text-[9px] font-black uppercase tracking-[0.1em] transition-opacity duration-300 ${active ? 'opacity-100' : 'opacity-40'}`}>
             {label}
         </span>
     </Link>
@@ -37,10 +37,10 @@ const MobileFooter = () => {
     ];
 
     return (
-        <footer className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
-            {/* Glassmorphic Background */}
-            <div className="bg-[#16161F]/80 backdrop-blur-xl border-t border-white/10 px-6 py-3 rounded-t-[24px] shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
-                <div className="flex items-center justify-between max-w-md mx-auto">
+        <footer className="fixed bottom-0 left-0 right-0 z-100 lg:hidden transition-all duration-300">
+            {/* Glassmorphic Background - থিমের সাথে ম্যাচিং */}
+            <div className="bg-base-100/80 backdrop-blur-2xl border-t border-base-300 px-4 py-2 rounded-t-[2rem] shadow-[0_-15px_40px_rgba(0,0,0,0.2)]">
+                <div className="flex items-center justify-around max-w-md mx-auto h-14">
                     {navLinks.map((link) => (
                         <NavItem 
                             key={link.href}
@@ -54,7 +54,10 @@ const MobileFooter = () => {
             </div>
             
             {/* Safe Area for iOS/Modern Devices */}
-            <div className="bg-[#16161F]/80 h-[env(safe-area-inset-bottom)]" />
+            <div className="bg-base-100/80 h-[env(safe-area-inset-bottom)]" />
+            
+            {/* Bottom Glow Line - Headline এর স্টাইল অনুযায়ী */}
+            <div className='w-full h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent' />
         </footer>
     );
 };

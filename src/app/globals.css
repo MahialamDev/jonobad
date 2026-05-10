@@ -1,10 +1,52 @@
 @import "tailwindcss";
 @tailwind utilities;
+@plugin "daisyui";
 
 body {
-  background: #0A0A0F;
   overflow-x: hidden;
 }
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  /* আপনার ইমেজের প্রধান সবুজ রঙ */
+  --color-primary: #10B981; 
+  --color-primary-content: #ffffff;
+  
+  /* আপনার ইমেজের সেকেন্ডারি নীল/টিল রঙ */
+  --color-secondary: #0EA5E9; 
+  --color-secondary-content: #ffffff;
+  
+  /* ব্যাকগ্রাউন্ড এবং সারফেস কালার (ইমেজের মতো ক্লিন লুক) */
+  --base-100: #F9FAFB; /* একদম হালকা গ্রে/সাদা ব্যাকগ্রাউন্ড */
+  --base-200: #F3F4F6; /* কার্ডের নিচের সারফেস */
+  --base-300: #E5E7EB; /* বর্ডার এবং ডিভাইডার */
+  --base-content: #1F2937; /* মেইন টেক্সট কালার */
+  
+  --rounded-box: 1.5rem; /* ইমেজের মতো রাউন্ডেড কর্নার */
+  --rounded-btn: 0.75rem;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  /* ডার্ক মোডে আপনার Jonobad অ্যাপের সেই সিগনেচার ডার্ক লুক */
+  --color-primary: #10B981; 
+  --color-primary-content: #ffffff;
+  
+  --color-secondary: #0EA5E9;
+  
+  --base-100: #0A0A0F; /* আপনার অ্যাপের মেইন ডার্ক ব্যাকগ্রাউন্ড */
+  --base-200: #16161F; /* কার্ড ব্যাকগ্রাউন্ড */
+  --base-300: #26262F; /* বর্ডার কালার */
+  --base-content: #F3F4F6; /* টেক্সট কালার */
+  
+  --rounded-box: 1.5rem;
+}
+
+
 
 @keyframes marquee {
   from {
