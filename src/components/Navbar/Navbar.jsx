@@ -25,7 +25,7 @@ const Navbar = () => {
     { href: "/account", icon: User, label: "Account" },
   ];
 
-  if (pathname.startsWith('/feeds') || pathname.startsWith('/messages') || pathname.startsWith('/reports') || pathname.startsWith('/reels')) return null;
+  if (pathname.startsWith('/feeds') || pathname.startsWith('/messages') || pathname.startsWith('/reports') || pathname.startsWith('/reels') ) return null;
 
   return (
     <>

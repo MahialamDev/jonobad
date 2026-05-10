@@ -8,7 +8,9 @@ const HomeHeader = () => {
     const path = usePathname();
     
     // Store path এ হেডার হাইড থাকবে
-    if ( path.startsWith('/feeds') || path.startsWith('/messages') || path.startsWith('/reports') || path.startsWith('/reels')) return null;
+    // if ( path.startsWith('/feeds') || path.startsWith('/messages') || path.startsWith('/reports') || path.startsWith('/reels') || path.startsWith('/account')) return null;
+
+    if (path !== '/') return null;
 
     return (
         <header className="bg-[#0A0A0F] text-white pt-3 pb-5 px-5 rounded-b-[2rem] shadow-2xl relative overflow-hidden border-b border-white/[0.03] z-50">
@@ -53,9 +55,9 @@ const HomeHeader = () => {
                             </button>
                             <span className="absolute top-1.5 right-1.5 w-3.5 h-3.5 bg-red-600 text-[8px] flex items-center justify-center rounded-full border border-[#0A0A0F] font-black">1</span>
                         </div>
-                        <button className="p-2 hover:bg-white/5 rounded-full transition-all active:scale-90">
+                        <Link href={'/menu'} className="p-2 hover:bg-white/5 rounded-full transition-all active:scale-90">
                             <Menu size={20} className="text-gray-400" />
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -69,8 +71,8 @@ const HomeHeader = () => {
                                     <Award className="text-red-500" size={18} />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[8px] font-black text-red-500/60 uppercase tracking-tighter leading-none mb-0.5">Jonobad Club</span>
-                                    <h3 className="text-black font-black italic text-xs leading-none">MEMBERSHIP</h3>
+                                    <span className="text-[8px] font-black text-red-500/60 uppercase tracking-tighter leading-none mb-0.5">Jonobad Pay</span>
+                                    <h3 className="text-black font-black italic text-xs leading-none">Credits</h3>
                                 </div>
                             </div>
                             
@@ -83,11 +85,11 @@ const HomeHeader = () => {
 
                     {/* Small Action Buttons */}
                     <div className="flex items-center gap-2 flex-1">
-                        <button className="flex-1 h-[52px] bg-white/[0.98] rounded-xl flex items-center justify-center shadow-sm active:scale-95 transition-all group">
+                        <button className="flex-1 h-[52px] bg-white/[0.98] min-w-12 rounded-xl flex items-center justify-center shadow-sm active:scale-95 transition-all group">
                             <ScanLine size={20} className="text-red-500 group-hover:scale-110 transition-transform" />
                         </button>
                         
-                        <Link href="/wallet" className="flex-1 h-[52px]">
+                        <Link href="/wallet" className="flex-1 h-[52px] min-w-12">
                             <button className="w-full h-full bg-white/[0.98] rounded-xl flex items-center justify-center shadow-sm active:scale-95 transition-all group">
                                 <Wallet size={20} className="text-red-500 group-hover:scale-110 transition-transform" />
                             </button>
