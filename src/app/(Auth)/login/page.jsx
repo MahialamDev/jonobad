@@ -6,17 +6,29 @@ import { DiChrome } from 'react-icons/di';
 import { FaGithub } from 'react-icons/fa'; // GiThunderBlade এর বদলে standard Github icon
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const params = useSearchParams();
+  const callbackUrl = params.get('callbackurl') || '/';
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async( e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const result = await signIn('credentials', { email, password, redirect: false });
-    console.log(result)
+    try {
+      setLoading(true);
+      const result = await signIn('credentials', { email, password, callbackUrl });
+      console.log(result)
+    }  catch (err) {
+      console.log(err)
+   }finally {
+      setLoading(false)
+    }
+   
   }
 
   return (
@@ -94,11 +106,12 @@ const LoginPage = () => {
 
             {/* Login Button */}
             <motion.button 
+              disabled={loading}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               className="w-full bg-primary hover:bg-primary-focus text-primary-content font-black py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-4 tracking-widest text-xs"
             >
-              SIGN IN <ArrowRight size={18} />
+             {loading ? 'Loading...' :  <>SIGN IN <ArrowRight size={18} /></>}
             </motion.button>
           </form>
 

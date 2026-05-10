@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Settings, Grid, Droplets, FileText, MapPin, Globe, Award, UserPlus } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 const SocialProfilePage = () => {
     const user = {
@@ -16,6 +17,7 @@ const SocialProfilePage = () => {
         coverPic: "https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?auto=format&fit=crop&q=80&w=1200"
     };
 
+     const session = useSession();
     return (
         <div className="min-h-screen bg-base-100 text-base-content pb-24 overflow-x-hidden">
             
@@ -45,7 +47,7 @@ const SocialProfilePage = () => {
                         
                         {/* Name & Username */}
                         <div className="sm:pb-4 text-left">
-                            <h2 className="text-3xl sm:text-4xl font-black italic tracking-tighter">{user.name}</h2>
+                            <h2 className="text-3xl sm:text-4xl font-black italic tracking-tighter">{session?.data?.user?.name || 'Anonumas'}</h2>
                             <p className="text-primary font-bold text-sm tracking-wide">@{user.username}</p>
                             <p className="text-base-content/40 text-[10px] uppercase font-black tracking-widest mt-1">Joined {user.joinDate}</p>
                         </div>

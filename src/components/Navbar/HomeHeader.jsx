@@ -4,10 +4,12 @@ import { Search, Bell, Menu, ScanLine, ChevronDown, ChevronUp, Award, Wallet } f
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Headline from './Headline';
+import { useSession } from 'next-auth/react';
 
 const HomeHeader = () => {
     const path = usePathname();
     const [isExpanded, setIsExpanded] = useState(true);
+    const session = useSession();
     
     // স্ক্রল করলে হেডার একদম উপরে উঠে যাবে
     // useEffect(() => {
@@ -36,6 +38,9 @@ const HomeHeader = () => {
 
     if (path !== '/') return null;
 
+
+    console.log('form header', )
+
     return (
         <div className="fixed top-0 left-0 right-0 z-50">
             <Headline />
@@ -62,7 +67,7 @@ const HomeHeader = () => {
 
                             <div className="flex flex-col text-left" onClick={() => setIsExpanded(!isExpanded)}>
                                 <div className="flex items-center gap-1">
-                                    <h2 className={`font-black  tracking-tight transition-all ${isExpanded ? 'text-sm' : 'text-sm'}`}>Mr Rahat</h2>
+                                    <h2 className={`font-black  tracking-tight transition-all ${isExpanded ? 'text-sm' : 'text-sm'}`}>{session?.data?.user?.name || 'Anonumas'}</h2>
                                     {isExpanded ? <ChevronUp size={14} className="opacity-40" /> : <ChevronDown size={14} className="opacity-40 text-primary" />}
                                 </div>
                                 {!isExpanded && (

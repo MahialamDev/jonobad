@@ -5,9 +5,34 @@ import { ArrowRight, Eye, EyeOff, Lock, Mail, User, ShieldCheck } from 'lucide-r
 import { DiChrome } from 'react-icons/di';
 import { FaGithub } from 'react-icons/fa';
 import Link from 'next/link';
+import { postUser } from '@/actions/server/auth';
+import { useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
+  
+  const router = useRouter();
+  const handleSignUp = async(e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+   
+    try {
+      setLoading(true);
+      const result = await postUser({ name, email, password });
+      if (result.success) {
+        router.push('/login')
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false)
+    }
+   
+
+  }
 
   return (
     <div className="min-h-screen bg-base-100 flex items-center justify-center p-6 relative overflow-hidden text-base-content">
@@ -38,7 +63,7 @@ const SignUpPage = () => {
 
         {/* SignUp Card */}
         <div className="bg-base-200/50 backdrop-blur-2xl border border-base-300 p-8 rounded-[2.5rem] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4)]">
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={handleSignUp}>
             
             {/* Full Name Input */}
             <div className="space-y-1.5">
@@ -48,6 +73,7 @@ const SignUpPage = () => {
                   <User size={18} className="text-base-content/30 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
+                  name='name'
                   type="text" 
                   placeholder="Rahat Islam"
                   className="w-full bg-base-300/50 border border-base-300 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-base-content/20"
@@ -63,6 +89,7 @@ const SignUpPage = () => {
                   <Mail size={18} className="text-base-content/30 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
+                   name='email'
                   type="email" 
                   placeholder="rahat@example.com"
                   className="w-full bg-base-300/50 border border-base-300 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-base-content/20"
@@ -78,6 +105,7 @@ const SignUpPage = () => {
                   <Lock size={18} className="text-base-content/30 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input 
+                   name='password'
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
                   className="w-full bg-base-300/50 border border-base-300 rounded-2xl py-3.5 pl-12 pr-12 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-base-content/20"
@@ -102,11 +130,12 @@ const SignUpPage = () => {
 
             {/* Sign Up Button */}
             <motion.button 
+              disabled={loading}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               className="w-full bg-primary hover:bg-primary-focus text-primary-content font-black py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-2 tracking-widest text-xs"
             >
-              CREATE ACCOUNT <ArrowRight size={18} />
+              {loading? 'Loading...' : <>CREATE ACCOUNT <ArrowRight size={18} /></>}
             </motion.button>
           </form>
 

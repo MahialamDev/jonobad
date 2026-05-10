@@ -6,6 +6,7 @@ import {
   UserCircle, Crown, ChevronRight, Info, LogOut 
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { signOut } from 'next-auth/react';
 
 const MenuPage = () => {
   // মেনু আইটেমগুলোকে ক্যাটাগরি অনুযায়ী আপনার থিম কালারে সাজানো হয়েছে
@@ -110,7 +111,7 @@ const MenuPage = () => {
         ))}
 
         {/* --- LOGOUT BUTTON --- */}
-        <button className="w-full bg-error/10 hover:bg-error/20 text-error border border-error/20 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8 shadow-sm">
+        <button onClick={()=> signOut()} className="w-full bg-error/10 hover:bg-error/20 text-error border border-error/20 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8 shadow-sm">
           <LogOut size={18} />
           <span className="text-xs font-black uppercase tracking-widest">Logout from Jonobad</span>
         </button>
