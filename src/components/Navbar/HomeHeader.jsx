@@ -1,108 +1,127 @@
 'use client';
-import React from 'react';
-import { Search, Bell, Menu, ScanLine, ChevronDown, Award, Wallet } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Bell, Menu, ScanLine, ChevronDown, ChevronUp, Award, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Headline from './Headline'; // Headline কম্পোনেন্টটি ইম্পোর্ট করা হয়েছে
+import Headline from './Headline';
 
 const HomeHeader = () => {
     const path = usePathname();
+    const [isExpanded, setIsExpanded] = useState(true);
     
+    // স্ক্রল করলে হেডার একদম উপরে উঠে যাবে
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 10) setIsExpanded(false);
+            else setIsExpanded(true);
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     if (path !== '/') return null;
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50">
-            {/* --- TOP MARQUEE HEADLINE (Mobile-এও দেখানোর জন্য hidden md:flex সরানো হয়েছে Headline থেকে) --- */}
             <Headline />
 
-            <header className="bg-base-100/95 backdrop-blur-md text-base-content pt-4 pb-6 px-5 rounded-b-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden border-b border-base-300 transition-all duration-300">
-                
-                {/* Background Accent Glow - Headline এর Primary কালারের সাথে ম্যাচিং */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 blur-[80px] pointer-events-none"></div>
+            {/* হেডার কন্টেইনার - প্যাডিং এবং রাউন্ডেড কর্নার ডাইনামিক করা হয়েছে */}
+            <header className={`bg-base-100/95 backdrop-blur-md text-base-content px-5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] relative overflow-hidden border-b border-base-300 transition-all duration-500 ease-in-out ${isExpanded ? 'pt-4 pb-4 rounded-b-[2.5rem]' : 'pt-4 pb-2 rounded-b-xl'}`}>
                 
                 <div className="max-w-7xl mx-auto relative z-10">
                     
                     {/* --- TOP SECTION --- */}
-                    <div className="flex justify-between items-center mb-6">
+                    <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
-                            {/* Profile with Primary Ring */}
-                            <div className="relative group cursor-pointer">
-                                <div className="w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-primary via-secondary to-transparent group-hover:rotate-180 transition-transform duration-700">
+                            {/* Profile - ছোট বড় হবে অবস্থার ওপর ভিত্তি করে */}
+                            <div className="relative group cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
+                                <div className={`rounded-full p-[2px] bg-gradient-to-tr from-primary to-secondary transition-all duration-500 ${isExpanded ? 'w-10 h-10' : 'w-8 h-8'}`}>
                                     <img 
                                         src="https://api.dicebear.com/8.x/notionists/svg?seed=Mahi" 
                                         alt="User" 
                                         className="w-full h-full rounded-full bg-base-200 object-cover"
                                     />
                                 </div>
-                                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-primary border-2 border-base-100 rounded-full shadow-lg"></div>
+                                {isExpanded && <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary border-2 border-base-100 rounded-full animate-pulse"></div>}
                             </div>
 
-                            {/* User Text */}
-                            <div className="flex flex-col text-left">
-                                <div className="flex items-center gap-1 group">
-                                    <h2 className="text-base font-black italic tracking-tight group-hover:text-primary transition-colors">Mr Rahat</h2>
-                                    <ChevronDown size={14} className="opacity-40 group-hover:translate-y-0.5 transition-transform" />
+                            <div className="flex flex-col text-left" onClick={() => setIsExpanded(!isExpanded)}>
+                                <div className="flex items-center gap-1">
+                                    <h2 className={`font-black  tracking-tight transition-all ${isExpanded ? 'text-sm' : 'text-sm'}`}>Mr Rahat</h2>
+                                    {isExpanded ? <ChevronUp size={14} className="opacity-40" /> : <ChevronDown size={14} className="opacity-40 text-primary" />}
                                 </div>
-                                <div className="flex items-center gap-1.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                                    <p className="text-[9px] opacity-60 font-black tracking-[0.15em] uppercase">MEMBER #922268</p>
-                                </div>
+                                {!isExpanded && (
+                                    <p className="text-[9px] font-black text-primary italic leading-none">1,000 PTS</p>
+                                )}
                             </div>
                         </div>
 
-                        {/* Action Icons - Sleek & Compact */}
-                        <div className="flex items-center gap-2">
-                            <button className="w-10 h-10 flex items-center justify-center hover:bg-primary/10 rounded-btn transition-all active:scale-90 border border-transparent hover:border-primary/20">
-                                <Search size={18} className="opacity-70" />
+                        {/* Action Icons */}
+                        <div className="flex items-center gap-1.5">
+                            <button className="w-8 h-8 flex items-center justify-center hover:bg-primary/10 rounded-full transition-all">
+                                <Search size={16} className="opacity-60" />
                             </button>
                             <div className="relative">
-                                <button className="w-10 h-10 flex items-center justify-center hover:bg-primary/10 rounded-btn transition-all active:scale-90 border border-transparent hover:border-primary/20">
-                                    <Bell size={18} className="opacity-70" />
+                                <button className="w-8 h-8 flex items-center justify-center hover:bg-primary/10 rounded-full transition-all">
+                                    <Bell size={16} className="opacity-60" />
                                 </button>
-                                <span className="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border border-base-100"></span>
+                                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-secondary rounded-full border border-base-100"></span>
                             </div>
-                            <Link href={'/menu'} className="w-10 h-10 flex items-center justify-center bg-base-200 rounded-btn border border-base-300 hover:bg-base-300 transition-all active:scale-90">
-                                <Menu size={20} />
+                            <Link href={'/menu'} className="ml-1 w-8 h-8 flex items-center justify-center bg-base-200 rounded-lg border border-base-300">
+                                <Menu size={16} />
                             </Link>
                         </div>
                     </div>
 
-                    {/* --- BOTTOM SECTION (Wallet & Quick Actions) --- */}
-                    <div className="flex items-center gap-3">
-                        {/* Credits Card - Headline এর মতো Italic & Black টাইপোগ্রাফি */}
-                        <Link href="/wallet" className="flex-none">
-                            <div className="bg-base-200 border border-base-300 rounded-2xl p-3 flex items-center gap-4 hover:border-primary/30 transition-all active:scale-[0.98] shadow-sm">
-                                <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
-                                    <Award className="text-primary" size={20} />
-                                </div>
-                                <div className="flex flex-col text-left pr-2">
-                                    <span className="text-[8px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-1">Available</span>
-                                    <div className="flex items-center gap-1.5">
-                                        <span className="text-base-content text-lg font-black italic leading-none tracking-tighter">1,000</span>
-                                        <span className="text-[10px] font-bold opacity-40 uppercase">PTS</span>
+                    {/* --- COLLAPSIBLE SECTION (Wallet & QR) --- */}
+                    <div className={`grid transition-all duration-500 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 translate-y-0 mt-4' : 'grid-rows-[0fr] opacity-0 -translate-y-4 pointer-events-none'}`}>
+                        <div className="overflow-hidden">
+                            <div className="flex items-center gap-2 pt-1">
+                                {/* Credits Card */}
+                                <Link href="/wallet" className="flex-[1.5]">
+                                    <div className="bg-base-200 border border-base-300 rounded-xl p-2.5 flex items-center gap-3 hover:border-primary/30 transition-all active:scale-[0.98]">
+                                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                                            <Award className="text-primary" size={18} />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-[7px] font-black text-primary uppercase tracking-tighter leading-none mb-1">Balance</span>
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-base-content text-base font-black italic leading-none tracking-tighter">1,000</span>
+                                                <span className="text-[8px] font-bold opacity-40">PTS</span>
+                                            </div>
+                                        </div>
                                     </div>
+                                </Link>
+
+                                {/* Quick Buttons */}
+                                <div className="flex items-center gap-2 flex-1 h-[48px]">
+                                    <button className="flex-1 h-full bg-primary text-primary-content rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 active:scale-95">
+                                        <ScanLine size={18} />
+                                    </button>
+                                    <Link href="/wallet" className="flex-1 h-full">
+                                        <button className="w-full h-full bg-base-content text-base-100 rounded-xl flex items-center justify-center active:scale-95">
+                                            <Wallet size={16} />
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
-                        </Link>
-
-                        {/* QR & Wallet Quick Buttons */}
-                        <div className="flex items-center gap-2 flex-1 h-[58px]">
-                            <button className="flex-1 h-full bg-primary text-primary-content rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 active:scale-95 transition-all group overflow-hidden relative">
-                                <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                                <ScanLine size={22} className="relative z-10" />
-                            </button>
-                            
-                            <Link href="/wallet" className="flex-1 h-full">
-                                <button className="w-full h-full bg-base-content text-base-100 rounded-2xl flex items-center justify-center active:scale-95 transition-all shadow-lg group">
-                                    <Wallet size={20} className="group-hover:rotate-12 transition-transform" />
-                                </button>
-                            </Link>
                         </div>
                     </div>
+
+                    {/* Arrow Indicator Button */}
+                    <div className="flex justify-center -mb-1 mt-1">
+                        <button 
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="text-base-content/20 hover:text-primary transition-colors duration-300"
+                        >
+                            {isExpanded ? <ChevronUp size={18} strokeWidth={3} /> : <ChevronDown size={18} strokeWidth={3} />}
+                        </button>
+                    </div>
+
                 </div>
 
-                {/* Bottom Border Accent Line - Headline এর সাথে ম্যাচিং */}
-                <div className='absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-30' />
+                {/* Bottom Border Glow */}
+                <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`} />
             </header>
         </div>
     );
