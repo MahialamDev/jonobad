@@ -128,7 +128,7 @@ const LoginPage = () => {
 
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center gap-2 bg-base-300/50 hover:bg-base-300 border border-base-300 py-3.5 rounded-2xl transition-all group">
+            <button onClick={()=> signIn('google', {callbackUrl})} className="flex items-center justify-center gap-2 bg-base-300/50 hover:bg-base-300 border border-base-300 py-3.5 rounded-2xl transition-all group">
               <DiChrome size={20} className="group-hover:text-primary transition-colors" /> 
               <span className="text-[11px] font-black uppercase tracking-tighter">Google</span>
             </button>

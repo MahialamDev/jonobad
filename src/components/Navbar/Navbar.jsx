@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import GetStartedBtn from "../Ui/Buttons/GetStartedBtn";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ const Navbar = () => {
     { href: "/store", icon: ShoppingBag, label: "Store" },
     { href: "/feeds", icon: FileText, label: "Feeds" },
     { href: "/blood", icon: Droplets, label: "Blood" },
-    { href: "/login", icon: User, label: "Account" },
+    { href: "/account", icon: User, label: "Account" },
   ];
 
   const hideNavbarPaths = ['/feeds', '/messages', '/reports', '/reels', '/store', '/menu'];
@@ -81,9 +82,7 @@ const Navbar = () => {
                 })}
               </div>
 
-              <button className="bg-primary hover:bg-primary/90 text-white transition-all px-8 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-xl shadow-primary/10 active:scale-95">
-                Get Started
-              </button>
+              <GetStartedBtn/>
             </div>
 
             {/* MOBILE MENU BUTTON */}

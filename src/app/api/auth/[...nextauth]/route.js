@@ -1,61 +1,52 @@
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { dbConnect } from "@/lib/dbConnect"
-import bcrypt from "bcryptjs"
-
-const user = { id: 1, name: "Mahialam", email: 'rahat@gmail.com', password: '4645445', role: 'user'}
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import { dbConnect } from "@/lib/dbConnect";
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
-  // Configure one or more authentication providers
+  session: {
+    strategy: "jwt",
+  },
+
   providers: [
-    
-        // ...add more providers here
-      CredentialsProvider({
-    // The name to display on the sign in form (e.g. 'Sign in with...')
-    name: 'Credentials',
-  
-    // credentials: {
-    //   username: { label: "Username", type: "text", placeholder: "jsmith" },
-    //   password: { label: "Password", type: "password" }
-    // },
-        async authorize(credentials, req) {
-          
-          if (!credentials?.email || !credentials?.password) {
-    return null;
-  }
+    CredentialsProvider({
+      name: "Credentials",
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
 
-  const user = await dbConnect('users').findOne({
-    email: credentials.email,
-  });
+        const collection = await dbConnect("users");
 
-  if (!user) {
-    return null;
-  }
+        const user = await collection.findOne({
+          email: credentials.email,
+        });
 
-  const isPasswordMatched = await bcrypt.compare(
-    credentials.password,
-    user.password
-  );
+        if (!user) return null;
 
-  if (!isPasswordMatched) {
-    return null;
-  }
+        const isPasswordMatched = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
 
-  // ⚠️ NEVER return password
-  return {
-    id: user._id.toString(),
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    createdAt: new Date(user.createdAt).toLocaleDateString()
-  };
-      
-    }
+        if (!isPasswordMatched) return null;
+
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
+      },
+    }),
+
+    GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
   })
-  ],
-}
 
-const handler = NextAuth(authOptions)
+  ],
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
