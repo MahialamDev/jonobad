@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
-import { Settings, Grid, Droplets, FileText, MapPin, Globe, Award, UserPlus } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import React, { useState } from 'react';
+import { Settings, Grid, Droplets, FileText, MapPin, Globe, Award, UserPlus, LogOut } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 // import { useSession } from 'next-auth/react';
 
 const SocialProfilePage = () => {
+    const [showSetting, setShowSetting] = useState(false);
     const user = {
         name: "Mahialam Rahat",
         username: "mahi_rahat",
@@ -56,13 +57,67 @@ const SocialProfilePage = () => {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-2 sm:pb-4 w-full sm:w-auto">
+                    <div className="flex gap-2 sm:pb-4 w-full sm:w-auto relative ">
                         <button className="flex-1 sm:flex-initial bg-primary text-primary-content px-8 py-3 rounded-xl font-black italic text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
                             EDIT PROFILE
                         </button>
-                        <button className="bg-base-200 border border-base-300 text-base-content p-3.5 rounded-xl transition hover:bg-base-300">
+                        <button onClick={()=> setShowSetting(!showSetting)} className="bg-base-200 border border-base-300 text-base-content p-3.5 rounded-xl transition hover:bg-base-300">
                             <Settings size={22} className="opacity-70" />
                         </button>
+
+                        {showSetting && (
+  <div className="absolute right-0 top-full z-20 mt-3 w-72 rounded-2xl border border-base-300 bg-base-100 shadow-xl overflow-hidden">
+
+    {/* Header */}
+    <div className="p-4 border-b border-base-300 bg-base-200">
+      <p className="text-xs opacity-60 uppercase tracking-widest">
+        Account Settings
+      </p>
+    </div>
+
+    {/* User Info */}
+    <div className="p-4 flex items-center gap-3">
+      <img
+        src="/avatar.png"
+        alt="user"
+        className="w-10 h-10 rounded-full object-cover border"
+      />
+      <div>
+        <p className="font-bold text-sm">{userName || 'Anonumas'}</p>
+        <p className="text-xs opacity-60">{ session?.user?.email || 'email@gmail.com'}</p>
+      </div>
+    </div>
+
+    {/* Actions */}
+    <div className="p-2 flex flex-col gap-2">
+
+      <button className="w-full text-left px-3 py-2 rounded-xl hover:bg-base-200 transition text-sm">
+        Profile Settings
+      </button>
+
+      <button className="w-full text-left px-3 py-2 rounded-xl hover:bg-base-200 transition text-sm">
+        Privacy & Security
+      </button>
+
+      <button className="w-full text-left px-3 py-2 rounded-xl hover:bg-base-200 transition text-sm">
+        Help & Support
+      </button>
+
+    </div>
+
+    {/* Footer */}
+    <div className="p-3 border-t border-base-300">
+      <button
+        onClick={() => signOut()}
+        className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl text-sm font-semibold transition"
+      >
+        <LogOut size={16} />
+        Sign out
+      </button>
+    </div>
+
+  </div>
+)}
                     </div>
                 </div>
             </div>

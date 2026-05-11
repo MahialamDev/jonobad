@@ -44,11 +44,11 @@ const MenuPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-base-100 text-base-content pt-28 pb-12 px-4 transition-colors duration-300">
+    <div className="min-h-screen bg-base-100 text-base-content pt-28 pb-12 px-4 transition-colors duration-300 mb-10">
       <div className="max-w-xl mx-auto space-y-6">
         
         {/* --- USER PROFILE CARD --- */}
-        <div className="bg-base-200 border border-base-300 p-5 rounded-[2.5rem] flex items-center justify-between shadow-xl">
+        <div className="bg-base-200/60 border border-base-300 p-5 rounded-2xl flex items-center justify-between shadow-xl">
           <div className="flex items-center gap-4">
             {/* থিমের প্রাইমারি সবুজাভ গ্রেডিয়েন্ট */}
             <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-secondary p-0.5 shadow-lg shadow-primary/20">
@@ -75,7 +75,7 @@ const MenuPage = () => {
             { id: 'sub', label: 'Subscription', icon: Crown, color: 'text-warning' },
             { label: 'About App', icon: Info, color: 'text-secondary' },
           ].map((item, idx) => (
-            <button key={idx} className="bg-base-200 border border-base-300 p-4 rounded-3xl flex flex-col items-center gap-2 hover:bg-base-300 transition-all active:scale-95 group">
+            <button key={idx} className="bg-base-200/60 border border-base-300 p-4 rounded-2xl flex flex-col items-center gap-2 hover:bg-base-300 transition-all active:scale-95 group">
               <item.icon size={22} className={`${item.color} group-hover:scale-110 transition-transform`} />
               <span className="text-[9px] font-black uppercase opacity-60 text-center">{item.label}</span>
             </button>
@@ -88,7 +88,7 @@ const MenuPage = () => {
             <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] ml-4 text-left">
               {group.title}
             </p>
-            <div className="bg-base-200 border border-base-300 rounded-[2.5rem] overflow-hidden shadow-sm">
+            <div className="bg-base-200/60 border border-base-300 rounded-2xl overflow-hidden shadow-sm">
               {group.items.map((item, iIdx) => (
                 <motion.div 
                   whileTap={{ scale: 0.98 }}
@@ -111,7 +111,7 @@ const MenuPage = () => {
         ))}
 
         {/* --- LOGOUT BUTTON --- */}
-        <button onClick={()=> signOut()} className="w-full bg-error/10 hover:bg-error/20 text-error border border-error/20 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8 shadow-sm">
+        <button onClick={()=> signOut()} className="w-full bg-error/10 hover:bg-error/20 text-error border border-error/20 py-5 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 mb-8 shadow-sm">
           <LogOut size={18} />
           <span className="text-xs font-black uppercase tracking-widest">Logout from Jonobad</span>
         </button>
